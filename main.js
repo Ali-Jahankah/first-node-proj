@@ -1,5 +1,5 @@
 const yargs = require("yargs");
-
+const { addContact } = require("./contacts");
 yargs.command({
   command: "create",
   aliases: ["cr", "crt", "c"],
@@ -25,7 +25,7 @@ yargs.command({
     },
   },
   handler({ fullname, phone, email }) {
-    console.log(fullname, phone, email);
+    addContact(fullname, phone, email);
   },
 });
 // console.log(yargs.argv);
