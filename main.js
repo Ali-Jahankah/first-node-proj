@@ -1,5 +1,5 @@
 const yargs = require("yargs");
-const { addContact } = require("./contacts");
+const { addContact, listHandler, removeHandler } = require("./contacts");
 yargs.command({
   command: "create",
   aliases: ["cr", "crt", "c"],
@@ -7,7 +7,7 @@ yargs.command({
   builder: {
     fullname: {
       alias: "f",
-      describe: "person's fuulname",
+      describe: "person's fullname",
       demandOption: true,
       type: "string",
     },
@@ -26,6 +26,30 @@ yargs.command({
   },
   handler({ fullname, phone, email }) {
     addContact(fullname, phone, email);
+  },
+});
+yargs.command({
+  describe: "Listing all the contacts",
+  aliases: ["l", "li"],
+  command: "list",
+  handler() {
+    listHandler();
+  },
+});
+yargs.command({
+  command: "remove",
+  aliases: ["rm", "r"],
+  describe: "Remove a contact",
+  builder: {
+    fullname: {
+      describe: "[fullname]",
+      alias: "f",
+      type: "string",
+      demandOption: true,
+    },
+  },
+  handler({ fullname }) {
+    removeHandler(fullname);
   },
 });
 // console.log(yargs.argv);
